@@ -2,7 +2,7 @@
 require 'config.php';
 require 'models/Auth.php';
 
-$email = filter_input(INPUT_POST, 'email');
+$name = filter_input(INPUT_POST, 'name');
 $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 $password = filter_input(INPUT_POST, 'password');
 $birthdate = filter_input(INPUT_POST, 'birthdate');
@@ -26,6 +26,9 @@ if($name && $email && $password && $birthdate){
     
     if($auth->emailExists($email) === false){
         
+        $auth->registerUser($name, $email, $password, $birthdate);
+        header ('location: '.$base);
+        exit;
     }else{
         $_SESSION['flash'] = 'Email ja cadastrado';
         header ('location: '.$base.'/signup.php');
