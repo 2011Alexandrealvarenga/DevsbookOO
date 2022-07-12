@@ -1,6 +1,6 @@
 <?php 
 
-$base = "http://localhost:8080/PHP/cursos/b7web/DevsbookOO/";
+$base = "http://localhost:8080/PHP/cursos/b7web/DevsbookOO";
 
 $db_name = "devsbook";
 $db_host='localhost';
