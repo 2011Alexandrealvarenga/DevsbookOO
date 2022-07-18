@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "..\\dao"
+		},
+		{
+			"path": "..\\media"
+		},
+		{
+			"path": "..\\models"
+		},
+		{
+			"path": "..\\partials"
+		}
+	]
+}
