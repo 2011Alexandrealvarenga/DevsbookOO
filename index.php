@@ -1,19 +1,14 @@
 <?php 
 require 'config.php';
 require 'models/Auth.php';
-require 'dao/UserRelationPostDaoMysql.php';
+require 'dao/PostDaoMysql.php';
 
 $auth = new Auth($pdo, $base);
 $userInfo = $auth->checkToken();
 $activeMenu = 'home';
 
-// 1 lista dos usuarios que eu sigo
-$urDao = new UserRelationDaoMysql($pdo);
-$userList = $urDao->getRelationsFrom($userInfo->id);
-
-// 2 pegar os posts ordenado pela data
-
-// 3 transforma o resultado em objetos
+$postDao = new PostDaoMysql($pdo);
+$feed = $postDao->getHomeFeed($userInfo->id);
 
 require 'partials/header.php';
 require 'partials/menu.php';
@@ -24,6 +19,11 @@ require 'partials/menu.php';
         <div class="column pr-5">
 
             <?php require 'partials/feed-editor.php'; ?>
+            <?php foreach($feed as $item):?> 
+                <?php require 'partials/feed-item.php'; ?>
+                
+            <?php endforeach;?>
+
         
 
         </div>
