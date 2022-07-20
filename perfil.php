@@ -18,7 +18,7 @@ $postDao = new PostDaoMysql($pdo);
 $userDao = new UserDaoMysql($pdo);
 
 // pegar informações do usuario
-$user = $userDao->findById($id);
+$user = $userDao->findById($id, true);
 if(!$user){
     header("location: ".$base);
     exit;
@@ -39,6 +39,8 @@ $feed = $postDao->getHomeFeed($userInfo->id);
 
 require 'partials/header.php';
 require 'partials/menu.php';
+
+
 ?>
 
 <section class="feed">
@@ -59,15 +61,16 @@ require 'partials/menu.php';
                     </div>
                     <div class="profile-info-data row">
                         <div class="profile-info-item m-width-20">
-                            <div class="profile-info-item-n">-1</div>
+
+                            <div class="profile-info-item-n"><?=count(array($user->followers)); ?></div>
                             <div class="profile-info-item-s">Seguidores</div>
                         </div>
                         <div class="profile-info-item m-width-20">
-                            <div class="profile-info-item-n">-1</div>
+                            <div class="profile-info-item-n"><?php echo count($user->following); ?></div>
                             <div class="profile-info-item-s">Seguindo</div>
                         </div>
                         <div class="profile-info-item m-width-20">
-                            <div class="profile-info-item-n">-1</div>
+                            <div class="profile-info-item-n"><?php echo count($user->photos); ?></div>
                             <div class="profile-info-item-s">Fotos</div>
                         </div>
                     </div>
@@ -107,91 +110,29 @@ require 'partials/menu.php';
                 <div class="box-header m-10">
                     <div class="box-header-text">
                         Seguindo
-                        <span>(363)</span>
+                        <span>(<?php echo count($user->following); ?>)</span>
                     </div>
                     <div class="box-header-buttons">
-                        <a href="<?=$base;?>">ver todos</a>
+                        <a href="<?=$base;?>/amigos.php?id=<?php echo $user->id;?> ">ver todos</a>
                     </div>
                 </div>
                 <div class="box-body friend-list">
-                    
-                    <div class="friend-icon">
-                        <a href="<?=$base;?>">
-                            <div class="friend-icon-avatar">
-                                <img src="<?=$base;?>/media/avatars/avatar.jpg" />
-                            </div>
-                            <div class="friend-icon-name">
-                                Bonieky
-                            </div>
-                        </a>
-                    </div>
+                    <?php if(count($user->following) > 0):?>
+                        <?php foreach($user->following as $item):?>
 
-                    <div class="friend-icon">
-                        <a href="<?=$base;?>">
-                            <div class="friend-icon-avatar">
-                                <img src="<?=$base;?>/media/avatars/avatar.jpg" />
+                            <div class="friend-icon">
+                                <a href="<?=$base;?>/perfil.php?id=<?php echo $item->id;?>">
+                                    <div class="friend-icon-avatar">
+                                        <img src="<?=$base;?>/media/avatars/<?php echo $user->avatar;?>" />
+                                    </div>
+                                    <div class="friend-icon-name">
+                                        <?php echo $item->name;?>
+                                    </div>
+                                </a>
                             </div>
-                            <div class="friend-icon-name">
-                                Bonieky
-                            </div>
-                        </a>
-                    </div>
 
-                    <div class="friend-icon">
-                        <a href="<?=$base;?>">
-                            <div class="friend-icon-avatar">
-                                <img src="<?=$base;?>/media/avatars/avatar.jpg" />
-                            </div>
-                            <div class="friend-icon-name">
-                                Bonieky
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="friend-icon">
-                        <a href="<?=$base;?>">
-                            <div class="friend-icon-avatar">
-                                <img src="<?=$base;?>/media/avatars/avatar.jpg" />
-                            </div>
-                            <div class="friend-icon-name">
-                                Bonieky
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="friend-icon">
-                        <a href="<?=$base;?>">
-                            <div class="friend-icon-avatar">
-                                <img src="media/avatars/avatar.jpg" />
-                            </div>
-                            <div class="friend-icon-name">
-                                Bonieky
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="friend-icon">
-                        <a href="<?=$base;?>">
-                            <div class="friend-icon-avatar">
-                                <img src="media/avatars/avatar.jpg" />
-                            </div>
-                            <div class="friend-icon-name">
-                                Bonieky
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="friend-icon">
-                        <a href="<?=$base;?>">
-                            <div class="friend-icon-avatar">
-                                <img src="media/avatars/avatar.jpg" />
-                            </div>
-                            <div class="friend-icon-name">
-                                Bonieky
-                            </div>
-                        </a>
-                    </div>
-
+                        <?php endforeach;?>
+                    <?php endif; ?>
                 </div>
             </div>
 
@@ -202,10 +143,10 @@ require 'partials/menu.php';
                 <div class="box-header m-10">
                     <div class="box-header-text">
                         Fotos
-                        <span>(12)</span>
+                        <span>(<?php echo count($user->photos);?>)</span>
                     </div>
                     <div class="box-header-buttons">
-                        <a href="<?=$base;?>">ver todos</a>
+                        <a href="<?=$base;?>/fotos.php?id=<?php echo $user->id;?>">ver todos</a>
                     </div>
                 </div>
                 <div class="box-body row m-20">

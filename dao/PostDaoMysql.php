@@ -1,6 +1,6 @@
 <?php 
 require_once 'models/Post.php';
-require_once 'dao/UserRelationPostDaoMysql.php';
+require_once 'dao/UserRelationDaoMysql.php';
 require_once 'dao/PostDaoMysql.php';
 
 class PostDaoMysql implements PostDAO{
@@ -28,7 +28,8 @@ class PostDaoMysql implements PostDAO{
 
         // 1 lista dos usuarios que eu sigo
         $urDao = new UserRelationDaoMysql($this->pdo);
-        $userList = $urDao->getRelationsFrom($id_user);
+        $userList = $urDao->getFollowing($id_user);
+        $userList[] = $id_user;
 
         // 2 pegar os posts ordenado pela data
         $sql = $this->pdo->query("SELECT * FROM posts
