@@ -25,6 +25,9 @@ if(!$user){
 }
 
 // data de nascimento - agora
+$dateFrom = new DateTime($user->birthdate);
+$dateTo = new DateTime('today');
+$user->ageYears = $dateFrom->diff($dateTo)->y;
 // pegar o feed do usuario
 
 // verificar se eu sigo este usuario
@@ -82,7 +85,7 @@ require 'partials/menu.php';
                     
                     <div class="user-info-mini">
                         <img src="<?=$base;?>/assets/images/calendar.png" />
-                        <?=date('d/m/Y', strtotime($user->birthdate));?>
+                        <?=date('d/m/Y', strtotime($user->birthdate));?> (<?php echo $user->ageYears?> anos)
                     </div>
 
                     <div class="user-info-mini">
