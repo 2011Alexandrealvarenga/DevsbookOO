@@ -85,18 +85,20 @@ require 'partials/menu.php';
                     
                     <div class="user-info-mini">
                         <img src="<?=$base;?>/assets/images/calendar.png" />
-                        <?=date('d/m/Y', strtotime($user->birthdate));?> (<?php echo $user->ageYears?> anos)
+                        <?=date('d/m/Y', strtotime($user->birthdate));?> (<?php echo $user->ageYears;?> anos)
                     </div>
-
-                    <div class="user-info-mini">
-                        <img src="<?=$base;?>/assets/images/pin.png" />
-                        Campina Grande, Brasil
-                    </div>
-
-                    <div class="user-info-mini">
-                        <img src="<?=$base;?>/assets/images/work.png" />
-                        B7Web
-                    </div>
+                    <?php if(!empty($user->city)):?>
+                        <div class="user-info-mini">
+                            <img src="<?=$base;?>/assets/images/pin.png" />
+                            <?php echo $user->city;?>
+                        </div>
+                    <?php endif; ?>
+                    <?php if(!empty($user->work)):?>
+                        <div class="user-info-mini">
+                            <img src="<?=$base;?>/assets/images/work.png" />
+                            <?php echo $user->work;?>
+                        </div>
+                    <?php endif;?>
 
                 </div>
             </div>
