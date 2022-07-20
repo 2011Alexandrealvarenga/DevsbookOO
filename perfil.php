@@ -1,7 +1,7 @@
 <?php 
-require 'config.php';
-require 'models/Auth.php';
-require 'dao/PostDaoMysql.php';
+require_once 'config.php';
+require_once 'models/Auth.php';
+require_once 'dao/PostDaoMysql.php';
 
 $auth = new Auth($pdo, $base);
 $userInfo = $auth->checkToken();
@@ -161,10 +161,10 @@ require 'partials/menu.php';
                         <?php foreach($user->photos as $item):?>
                             <div class="user-photo-item">
                                 <a href="<?=$base;?>#modal-1" rel="modal:open">
-                                    <img src="media/uploads/1.jpg" />
+                                    <img src="<?=$base;?>media/uploads/<?=$item->body;?>" />
                                 </a>
                                 <div id="modal-1" style="display:none">
-                                    <img src="media/uploads/1.jpg" />
+                                    <img src="<?=$base;?>media/uploads/<?=$item->body;?>" />
                                 </div>
                             </div>
                         <?php endforeach;?>
@@ -176,7 +176,7 @@ require 'partials/menu.php';
             <?php if($id == $userInfo->id) :?>
                 <?php require 'partials/feed-editor.php'; ?>
             <?php endif; ?>
-            
+
             <?php if(count($feed) > 0): ?>
                 <?php foreach($feed as $item):?>
                     <?php require 'partials/feed-item.php'; ?>
