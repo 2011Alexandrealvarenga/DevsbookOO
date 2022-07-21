@@ -13,6 +13,6 @@ if($email && $password){
     }
 }   
     
-$_SESSION['flash'] = "Email e/ou senha incorreta";
+$_SESSION['flash'] = "Email e/ou senha incorreta 2";
 header("location: ".$base."/login.php");
 exit;
