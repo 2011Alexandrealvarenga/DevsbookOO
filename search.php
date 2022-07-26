@@ -7,14 +7,15 @@ $auth = new Auth($pdo, $base);
 $userInfo = $auth->checkToken();
 $activeMenu = 'search';
 
-$postDao = new UserDaoMysql($pdo);
+$userDao = new UserDaoMysql($pdo);
 
 $searchTerm = filter_input(INPUT_GET, 's');
 
-if(empty($searchTerm)){
-    header("location: index.php");
+if(empty($searchTerm)) {
+    header("Location: ./");
+    exit;
 }
-$userDao->findByName($searchTerm);
+$userList = $userDao->findByName($searchTerm);
 
 require 'partials/header.php';
 require 'partials/menu.php';
@@ -31,7 +32,7 @@ require 'partials/menu.php';
                     <div class="friend-icon">
                         <a href="<?=$base;?>/perfil.php?id=<?php echo $item->id;?>">
                             <div class="friend-icon-avatar">
-                                <img src="<?=$base;?>/media/avatars/<?php echo $user->avatar;?>" />
+                                <img src="<?=$base;?>/media/avatars/<?php echo $item->avatar;?>" />
                             </div>
                             <div class="friend-icon-name">
                                 <?php echo $item->name;?>
@@ -51,8 +52,8 @@ require 'partials/menu.php';
                     </div>
                 </div>
                 <div class="box-body">
-                    <a href=""><img src="https://alunos.b7web.com.br/media/courses/php-nivel-1.jpg" /></a>
-                    <a href=""><img src="https://alunos.b7web.com.br/media/courses/laravel-nivel-1.jpg" /></a>
+                    <a href=""><img src="https://alunos.b7web.com.br/media/courses/php.jpg" /></a>
+                    <a href=""><img src="https://alunos.b7web.com.br/media/courses/laravel.jpg" /></a>
                 </div>
             </div>
             <div class="box">
