@@ -94,11 +94,11 @@ require 'partials/menu.php';
                         <?php foreach($user->photos as $key => $item): ?>
 
                             <div class="user-photo-item">
-                                <a href="#modal-<?=$key;?>" rel="modal:open">
-                                    <img src="<?=$base;?>media/uploads/<?=$item->body;?>" />
+                                <a href="#modal-<?=$key;?>" data-modal-open>
+                                    <img src="<?=$base;?>/media/uploads/<?=$item->body;?>" />
                                 </a>
                                 <div id="modal-<?=$key;?>" style="display:none">
-                                    <img src="media/uploads/<?=$item->body;?>" />
+                                    <img src="<?=$base;?>/media/uploads/<?=$item->body;?>" />
                                 </div>
                             </div>
 
@@ -116,5 +116,9 @@ require 'partials/menu.php';
     </div>
 
 </section>
-
+<script>
+    window.onload = function(){
+        var modal = new VanillaModal.default();
+    };
+</script>
 <?php require 'partials/footer.php';

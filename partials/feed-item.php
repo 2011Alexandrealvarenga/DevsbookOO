@@ -28,7 +28,16 @@ switch($item->type){
             </div>
         </div>
         <div class="feed-item-body mt-10 m-width-20">
-            <?php echo nl2br($item->body);?>
+            <?php  $actionPhrase = '';
+                switch($item->type){
+                    case 'text';
+                        echo nl2br($item->body);
+                    break;
+                    case 'photo';
+                        echo '<img src="'.$base.'/media/uploads/'.$item->body.'"/>';
+                    break;
+                }
+            ?>
         </div>
         <div class="feed-item-buttons row mt-20 m-width-20">
             <div class="like-btn <?php echo $item->liked?'on':'';?>"><?php echo $item->likeCount;?></div>
